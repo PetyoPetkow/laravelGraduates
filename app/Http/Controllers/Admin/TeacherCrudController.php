@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\TeacherRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class StudentCrudController
+ * Class TeacherCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class StudentCrudController extends CrudController
+class TeacherCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -19,7 +19,26 @@ class StudentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    
+    private function getFieldsData($show = FALSE) {
+        return [
+            [
+                'name'=> 'name',
+                'label' => 'Name',
+                'type'=> 'text'
+            ],
+            [    // Select2Multiple = n-n relationship (with pivot table)
+                'label'     => "Students",
+                'type'      => ($show ? "select": 'select2_multiple'),
+                'name'      => 'students', // the method that defines the relationship in your Model
+// optional
+                'entity'    => 'students', // the method that defines the relationship in your Model
+                'model'     => "App\Models\Student", // foreign key model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+            ]
+        ];
+    }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -27,9 +46,9 @@ class StudentCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Student::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/student');
-        CRUD::setEntityNameStrings('student', 'students');
+        CRUD::setModel(\App\Models\Teacher::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/teacher');
+        CRUD::setEntityNameStrings('teacher', 'teachers');
     }
 
     /**
@@ -42,7 +61,6 @@ class StudentCrudController extends CrudController
     {
         CRUD::column('id');
         CRUD::column('name');
-        CRUD::column('faculty_number');
         CRUD::column('created_at');
         CRUD::column('updated_at');
 
@@ -61,14 +79,14 @@ class StudentCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StudentRequest::class);
+        CRUD::setValidation(TeacherRequest::class);
 
         //CRUD::field('id');
         CRUD::field('name');
-        CRUD::field('faculty_number');
         //CRUD::field('created_at');
         //CRUD::field('updated_at');
 
+        $this->crud->addFields($this->getFieldsData());
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -86,5 +104,13 @@ class StudentCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
-    
+
+    protected function setupShowOperation()
+    {
+        // by default the Show operation will try to show all columns in the db table,
+        // but we can easily take over, and have full control of what columns are shown,
+        // by changing this config for the Show operation
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData(TRUE));
+    }
 }
