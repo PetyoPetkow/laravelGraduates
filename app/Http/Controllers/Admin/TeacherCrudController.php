@@ -33,7 +33,14 @@ class TeacherCrudController extends CrudController
                 'entity'    => 'students', // the method that defines the relationship in your Model
                 'model'     => "App\Models\Student", // foreign key model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?   
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?  
+            ],
+            [
+                'label' => "Teacher Image",
+                'name' => "image",
+                'type' => 'image',
+                'crop' => true, // set to true to allow cropping, false to disable
+                'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
             ]
         ];
     }
@@ -59,7 +66,7 @@ class TeacherCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->set('show.setFromDb', false);
-        $this->crud->addColumns($this->getFieldsData());
+        $this->crud->addColumns($this->getFieldsData(TRUE));
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
