@@ -19,6 +19,30 @@ class StudentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    private function getFieldsData()
+    {
+        return[
+        [
+            'name'  =>  'name',
+            'label' =>  'Name',
+            'type'  =>  'text',
+        ],
+        [
+            'name'  =>  'faculty_number',
+            'label' =>  'Faculty number',
+            'type'  =>  'text',
+        ],
+        [
+            'label'     => "Graduate thesis",
+            'name'      => 'graduate_thesis_id',
+            'type'      => 'select',
+            'entity'    => 'graduate_thesis',
+            'model'     => "App\Models\GraduateThesis", // related model
+            'attribute' => 'topic', // foreign key attribute that is shown to user
+        ],
+        ];
+    }
+
     
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -40,17 +64,16 @@ class StudentCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('name');
-        CRUD::column('faculty_number');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        CRUD::setValidation(StudentRequest::class)
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+         */.
+
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData(TRUE));
     }
 
     /**
@@ -64,8 +87,8 @@ class StudentCrudController extends CrudController
         CRUD::setValidation(StudentRequest::class);
 
         //CRUD::field('id');
-        CRUD::field('name');
-        CRUD::field('faculty_number');
+        // CRUD::field('name');
+        // CRUD::field('faculty_number');
         //CRUD::field('created_at');
         //CRUD::field('updated_at');
 
@@ -74,6 +97,8 @@ class StudentCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addFields($this->getFieldsData(TRUE));
     }
 
     /**
@@ -86,5 +111,14 @@ class StudentCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+    // protected function setupShowOperation()
+    // {
+    //     CRUD::setValidation(StudentRequest::class);
+    //     // by default the Show operation will try to show all columns in the db table,
+    //     // but we can easily take over, and have full control of what columns are shown,
+    //     // by changing this config for the Show operation
+    //     $this->crud->set('show.setFromDb', false);
+    //     $this->crud->addColumns($this->getFieldsData(TRUE));
+    // }
     
 }

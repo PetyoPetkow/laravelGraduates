@@ -35,6 +35,11 @@ class Student extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function graduate_thesis()
+    {
+        return $this->belongsTo(GraduateThesis::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -13,9 +13,12 @@ class CreateTeachersTable extends Migration
     public function up()
     {
         Schema::create('teachers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->unique();
             $table->string('name')->unique();
             $table->timestamps();
+            //$table->unsignedBigInteger('graduate_thesis_id');
+
+            //$table->foreign('graduate_thesis_id')->references('id')->on('graduate_theses');
         });
     }
 

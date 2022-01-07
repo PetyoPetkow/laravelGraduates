@@ -19,6 +19,25 @@ class GraduateThesisCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+
+    private function getFieldsData() {
+        return [
+            [
+                'name'=> 'topic',
+                'label' => 'Topic',
+                'type'=> 'text',
+            ],
+            [   
+                'label'     => "Teacher",
+                'name'      => 'teacher_id',
+                'type'      => 'select',
+                'entity'    => 'teacher',
+                'model'     => "App\Models\Teacher", // related model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+            ]
+        ];
+    }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -28,7 +47,7 @@ class GraduateThesisCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\GraduateThesis::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/graduate-thesis');
-        CRUD::setEntityNameStrings('graduate thesis', 'graduate thesis');
+        CRUD::setEntityNameStrings('graduate thesis', 'graduate theses');
     }
 
     /**
@@ -39,8 +58,11 @@ class GraduateThesisCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        
-        CRUD::column('topic')->type('text');
+        // CRUD::setFromDb(); // columns
+
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData(TRUE));
+
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -57,9 +79,11 @@ class GraduateThesisCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(GraduateThesisRequest::class);
+        // CRUD::setFromDb(); // fields
 
-        CRUD::field('topic')->type('text');
-
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addFields($this->getFieldsData(TRUE));
+        
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -77,4 +101,13 @@ class GraduateThesisCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    // protected function setupShowOperation()
+    // {
+    //     // by default the Show operation will try to show all columns in the db table,
+    //     // but we can easily take over, and have full control of what columns are shown,
+    //     // by changing this config for the Show operation
+    //     $this->crud->set('show.setFromDb', false);
+    //     $this->crud->addColumns($this->getFieldsData(TRUE));
+    // }
 }

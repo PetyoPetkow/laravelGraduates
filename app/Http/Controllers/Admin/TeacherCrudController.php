@@ -28,13 +28,12 @@ class TeacherCrudController extends CrudController
             ],
             [    // Select2Multiple = n-n relationship (with pivot table)
                 'label'     => "Students",
-                'type'      => ($show ? "select": 'select2_multiple'),
-                'name'      => 'students', // the method that defines the relationship in your Model
-// optional
+                //'type'      => ($show ? "select": 'select2_multiple'),
+                'name'      => 'students', // the method that defines the relationship in your Model optional
                 'entity'    => 'students', // the method that defines the relationship in your Model
                 'model'     => "App\Models\Student", // foreign key model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?   
             ]
         ];
     }
@@ -59,16 +58,17 @@ class TeacherCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('name');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
-
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData());
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+
+         //Student::select('name')->where('id',1)->get();
+         //$rar = compact('students');
+ 
     }
 
     /**
@@ -82,10 +82,11 @@ class TeacherCrudController extends CrudController
         CRUD::setValidation(TeacherRequest::class);
 
         //CRUD::field('id');
-        CRUD::field('name');
+        //CRUD::field('name');
         //CRUD::field('created_at');
         //CRUD::field('updated_at');
 
+        //$this->crud->set('show.setFromDb', false);
         $this->crud->addFields($this->getFieldsData());
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -111,6 +112,6 @@ class TeacherCrudController extends CrudController
         // but we can easily take over, and have full control of what columns are shown,
         // by changing this config for the Show operation
         $this->crud->set('show.setFromDb', false);
-        $this->crud->addColumns($this->getFieldsData(TRUE));
+        $this->crud->addColumns($this->getFieldsData());
     }
 }

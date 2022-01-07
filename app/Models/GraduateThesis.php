@@ -15,7 +15,7 @@ class GraduateThesis extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'graduate_thesis';
+    protected $table = 'graduate_theses';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,6 +34,16 @@ class GraduateThesis extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+    
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

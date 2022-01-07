@@ -40,6 +40,11 @@ class Teacher extends Model
         return $this->belongsToMany(Student::class,'teacher_students','teacher_id','student_id');
     }
 
+    public function graduate_theses()
+    {
+        return $this->hasMany(GraduateThesis::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
