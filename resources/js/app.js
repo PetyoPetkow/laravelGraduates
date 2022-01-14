@@ -1,1 +1,1 @@
-require('./bootstrap');
+require('../../public/assets/js/bootstrap');
