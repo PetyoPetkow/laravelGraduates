@@ -17,14 +17,6 @@ class CreateGraduateThesesTable extends Migration
             $table->string('topic');
             $table->timestamps();
             $table->unsignedBigInteger('teacher_id');
-           
-            //$table->unsignedBigInteger('student_id');
-           
-            //$table->foreign('student_id')->references('id')->on('students');
-            //$table->unsignedBigInteger('student_id');
-           
-            
-            
         });
     }
 

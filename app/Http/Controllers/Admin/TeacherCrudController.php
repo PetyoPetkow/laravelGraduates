@@ -19,7 +19,8 @@ class TeacherCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    private function getFieldsData($show = FALSE) {
+    private function getFieldsData($show = FALSE)
+    {
         return [
             [
                 'name'=> 'name',
@@ -28,12 +29,11 @@ class TeacherCrudController extends CrudController
             ],
             [    // Select2Multiple = n-n relationship (with pivot table)
                 'label'     => "Students",
-                //'type'      => ($show ? "select": 'select2_multiple'),
                 'name'      => 'students', // the method that defines the relationship in your Model optional
                 'entity'    => 'students', // the method that defines the relationship in your Model
                 'model'     => "App\Models\Student", // foreign key model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?  
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
             ],
             [
                 'label' => "Teacher Image",
@@ -47,7 +47,7 @@ class TeacherCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -59,7 +59,7 @@ class TeacherCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -70,17 +70,13 @@ class TeacherCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
-
-         //Student::select('name')->where('id',1)->get();
-         //$rar = compact('students');
- 
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -88,23 +84,17 @@ class TeacherCrudController extends CrudController
     {
         CRUD::setValidation(TeacherRequest::class);
 
-        //CRUD::field('id');
-        //CRUD::field('name');
-        //CRUD::field('created_at');
-        //CRUD::field('updated_at');
-
-        //$this->crud->set('show.setFromDb', false);
         $this->crud->addFields($this->getFieldsData());
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

@@ -16,9 +16,6 @@ class CreateTeachersTable extends Migration
             $table->bigIncrements('id')->unique();
             $table->string('name')->unique();
             $table->timestamps();
-            //$table->unsignedBigInteger('graduate_thesis_id');
-
-            //$table->foreign('graduate_thesis_id')->references('id')->on('graduate_theses');
         });
     }
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['pageTitle' => isset($pageTitle) ? $pageTitle : 'Page'])
 
 @section('content')
     <div class="inner">
