@@ -26,7 +26,7 @@ class GraduateThesisRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'topic' => 'required|min:5|max:255'
         ];
     }
 
@@ -50,7 +50,9 @@ class GraduateThesisRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'topic.required' => 'Topic is required!',
+            'topic.min' => 'Topic must be between 5 and 255 letters!',
+            'topic.max' => 'Topic must be between 5 and 255 letters!',
         ];
     }
 }

@@ -26,7 +26,7 @@ class TeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255',
         ];
     }
 
@@ -50,7 +50,9 @@ class TeacherRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => 'Name is required!',
+            'name.min' => 'Name must be between 5 and 255 letters!',
+            'name.max' => 'Name must be between 5 and 255 letters!',
         ];
     }
 }

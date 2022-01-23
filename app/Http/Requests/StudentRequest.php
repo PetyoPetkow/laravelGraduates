@@ -26,7 +26,8 @@ class StudentRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255',
+            'faculty_number' => 'required|digits:7'
         ];
     }
 
@@ -50,7 +51,11 @@ class StudentRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => 'Name is required!',
+            'name.min' => 'Name must be between 5 and 255 letters!',
+            'name.max' => 'Name must be between 5 and 255 letters!',
+            'faculty_number.required' => 'Faculty number is required!',
+            'faculty_number.digits' => 'Faculty number must be of 7 digits!',
         ];
     }
 }

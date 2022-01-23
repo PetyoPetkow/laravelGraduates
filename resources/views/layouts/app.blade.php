@@ -22,10 +22,10 @@
     <div id="main">
         <div class="inner">
 
-
-
             <!-- Content -->
             <section>
+
+                @yield('student')
                 @yield('content')
             </section>
 
@@ -49,8 +49,8 @@
                     <h2>Menu</h2>
                 </header>
                 <ul>
-                    <li><a href="index.html">Homepage</a></li>
-                    <li><a href="generic.html">Generic</a></li>
+                    <li><a href="students">Students</a></li>
+                    <li><a href="teachers">Teachers</a></li>
                     <li><a href="elements.html">Elements</a></li>
                     <li>
                         <span class="opener">Submenu</span>

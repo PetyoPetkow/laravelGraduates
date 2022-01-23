@@ -12,12 +12,12 @@
             <form class="w-100" action="/students" method="GET" style="margin-left: 10px">
                 <div class="input-group">
                     <input type="search" name="search" placeholder="Search for..." class="form-control">
-                    <select class="custom-select" name="search_by" id="searchBy">
+                    <select class="custom-select form-control" name="search_by" id="searchBy">
                         <option value="name" selected>Search by name</option>
                         <option value="teacher">Search by teacher</option>
                         <option value="graduate_thesis">Search by graduate thesis</option>
                     </select>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn-primary">Search</button>
                 </div>
             </form>
         </div>
