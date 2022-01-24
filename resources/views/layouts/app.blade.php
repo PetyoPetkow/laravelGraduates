@@ -34,22 +34,15 @@
     <div id="sidebar">
         <div class="inner">
 
-            <!-- Search -->
-            <section id="search" class="alt">
-                <form method="post" action="#">
-                    <input type="text" name="query" id="query" placeholder="Search" />
-                </form>
-            </section>
-
             <!-- Menu -->
             <nav id="menu">
                 <header class="major">
                     <h2>Menu</h2>
                 </header>
                 <ul>
+                    <li><a href="/">home</a></li>
                     <li><a href="students">Students</a></li>
                     <li><a href="teachers">Teachers</a></li>
-
                 </ul>
             </nav>
 
