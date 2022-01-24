@@ -73,7 +73,7 @@ CRUD Controllers:
 </ul>
 
 <h2>Views:</h2>
-    /TODO
+    We have 3 controllers for the public views."/" - default index page, "/students" - index page for students controller and "/teachers" - index page for teachers controller.
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
