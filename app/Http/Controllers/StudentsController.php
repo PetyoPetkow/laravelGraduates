@@ -43,7 +43,6 @@ class StudentsController extends Controller
                     'students.name',
                     'students.faculty_number',
                     'students.graduate_thesis_id',
-
                     'teachers.name AS teacherName',
                     'graduate_theses.topic AS graduateThesisTopic'
                 )
